@@ -1,5 +1,7 @@
 package com.project.questapp.controllers;
 
+import com.project.questapp.model.dto.request.PostCreateRequest;
+import com.project.questapp.model.dto.request.PostUpdateRequest;
 import com.project.questapp.model.entity.Post;
 import com.project.questapp.services.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,25 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createOnePost(@RequestBody Post newPost){
-        return postService.createOnePost(newPost);
+    public Post createOnePost(@RequestBody PostCreateRequest newPostREquest){
+        return postService.createOnePost(newPostREquest);
     }
 
     @GetMapping("/{postId}")
     public Post getOnePost(@RequestParam Long postId){
+
         return postService.getOnePostById(postId);
     }
+    @PutMapping("/{postId}")
+    public Post updateOnePost(@PathVariable Long postId, @RequestBody PostUpdateRequest updatePost){
+        return postService.updateOnePostById(postId, updatePost);
+
+    }
+
+    @DeleteMapping("/{postId}")
+    public void deleteOnePost(@PathVariable Long postId){
+        postService.deleteOnePostById(postId);
+    }
+
 }
+
