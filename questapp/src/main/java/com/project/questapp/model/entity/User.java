@@ -1,4 +1,4 @@
-package com.project.questapp.entities;
+package com.project.questapp.model.entity;
 
 import lombok.Data;
 

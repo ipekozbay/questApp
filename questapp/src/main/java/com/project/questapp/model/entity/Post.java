@@ -1,4 +1,4 @@
-package com.project.questapp.entities;
+package com.project.questapp.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -8,22 +8,23 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "p_likes")
+@Table(name = "posts")
 @Data
-public class Like {
+public class Post {
 
     @Id
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     User user;
+
+    private String title;
+
+    @Lob
+    @Column(columnDefinition = "text")
+    String text;
 
 }
