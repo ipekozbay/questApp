@@ -1,7 +1,7 @@
-package com.project.questapp.services;
+package com.project.questapp.service;
 
 import com.project.questapp.model.entity.User;
-import com.project.questapp.repositories.UserRepository;
+import com.project.questapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User getOneUSer(Long userId) {
+    public User getOneUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
 
     }

@@ -1,7 +1,7 @@
-package com.project.questapp.controllers;
+package com.project.questapp.controller;
 
 import com.project.questapp.model.entity.User;
-import com.project.questapp.services.UserService;
+import com.project.questapp.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +27,8 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public User getOneUser(@PathVariable Long userId){
-        return userService.getOneUSer(userId);
+
+        return userService.getOneUserById(userId);
     }
 
     @PutMapping("/{userId}")

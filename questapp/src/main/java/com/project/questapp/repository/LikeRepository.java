@@ -1,4 +1,4 @@
-package com.project.questapp.repositories;
+package com.project.questapp.repository;
 
 import com.project.questapp.model.entity.Like;
 import org.springframework.data.jpa.repository.JpaRepository;

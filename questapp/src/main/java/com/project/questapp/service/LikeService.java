@@ -1,4 +1,4 @@
-package com.project.questapp.services;
+package com.project.questapp.service;
 
 import org.springframework.stereotype.Service;
 

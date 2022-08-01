@@ -1,10 +1,10 @@
-package com.project.questapp.services;
+package com.project.questapp.service;
 
 import com.project.questapp.model.dto.request.PostCreateRequest;
 import com.project.questapp.model.dto.request.PostUpdateRequest;
 import com.project.questapp.model.entity.Post;
 import com.project.questapp.model.entity.User;
-import com.project.questapp.repositories.PostRepository;
+import com.project.questapp.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,11 +29,12 @@ public class PostService {
     }
 
     public Post getOnePostById(Long postId) {
+
         return postRepository.findById(postId).orElse(null);
     }
 
     public Post createOnePost(PostCreateRequest newPostRequest) {
-        User user = userService.getOneUSer(newPostRequest.getUserId());
+        User user = userService.getOneUserById(newPostRequest.getUserId());
         if (user==null)
             return null;
 
