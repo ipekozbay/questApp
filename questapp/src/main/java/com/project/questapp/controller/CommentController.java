@@ -24,8 +24,8 @@ public class CommentController {
     }
 
     @PostMapping
-    public Comment createOneComment(@RequestBody CommentCreateRequest newCommentRequest){
-        return commentService.createOneComment(newCommentRequest);
+    public Comment createOneComment(@RequestBody CommentCreateRequest request){
+        return commentService.createOneComment(request);
     }
 
     @GetMapping("/{commentId}")
@@ -40,6 +40,7 @@ public class CommentController {
 
     @DeleteMapping("/{commentId}")
     public void deleteOneComment(@PathVariable Long commentId){
+
         commentService.deleteOneCommentById(commentId);
     }
 

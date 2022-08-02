@@ -14,7 +14,6 @@ import java.util.Optional;
 @Service
 public class CommentService {
     private CommentRepository commentRepository;
-
     private UserService userService;
     private PostService postService;
 
@@ -35,17 +34,17 @@ public class CommentService {
             return commentRepository.findAll();
     }
 
-    public Comment createOneComment(CommentCreateRequest newCommentRequest) {
-        User user = userService.getOneUserById((newCommentRequest.getUserId()));
-        Post post = postService.getOnePostById(newCommentRequest.getPostId());
+    public Comment createOneComment(CommentCreateRequest request) {
+        User user = userService.getOneUserById((request.getUserId()));
+        Post post = postService.getOnePostById(request.getPostId());
 
         if (user!=null && post!=null ){
             Comment commentToSave = new Comment();
-            commentToSave.setId(newCommentRequest.getId());
+            commentToSave.setId(request.getId());
             commentToSave.setPost(post);
             commentToSave.setUser(user);
-            commentToSave.setText(newCommentRequest.getText());
-            return commentRepository.save(commentToSave)  ;
+            commentToSave.setText(request.getText());
+            return commentRepository.save(commentToSave);
         }else{
             return null;
         }
@@ -66,6 +65,7 @@ public class CommentService {
     }
 
     public void deleteOneCommentById(Long commentId) {
+
         commentRepository.deleteById(commentId);
     }
 
