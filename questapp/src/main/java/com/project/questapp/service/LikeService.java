@@ -61,7 +61,7 @@ public class LikeService {
 
         if (like.isPresent()){
             Like likeToUpdate = like.get();
-            return likeRepository.save(likeToUpdate)
+            return likeRepository.save(likeToUpdate);
         }else
             return null;
     }
