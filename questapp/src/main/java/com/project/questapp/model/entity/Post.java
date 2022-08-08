@@ -14,17 +14,18 @@ import javax.persistence.*;
 public class Post {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     User user;
 
     private String title;
 
     @Lob
+    @Column(columnDefinition="text")
     @Type(type = "org.hibernate.type.TextType")
     String text;
 
