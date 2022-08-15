@@ -7,6 +7,7 @@ import com.project.questapp.model.entity.Like;
 import com.project.questapp.model.entity.Post;
 import com.project.questapp.model.entity.User;
 import com.project.questapp.repository.LikeRepository;
+import com.project.questapp.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +18,13 @@ import java.util.stream.Collectors;
 public class LikeService {
     private LikeRepository likeRepository;
     private  UserService userService;
-    private PostService postService;
+    private PostRepository postRepository;
 
 
-    public LikeService(LikeRepository likeRepository, UserService userService,PostService postService) {
+    public LikeService(LikeRepository likeRepository, UserService userService,PostRepository postRepository) {
         this.likeRepository = likeRepository;
         this.userService=userService;
-        this.postService=postService;
+        this.postRepository=postRepository;
     }
 
     public List<LikeResponse> getAllLikesWithParam(Optional<Long> userId, Optional<Long> postId) {
@@ -46,7 +47,7 @@ public class LikeService {
     public Like createOneLike(LikeCreateRequest request) {
 
         User user = userService.getOneUserById(request.getUserId());
-        Post post = postService.getOnePostById(request.getPostId());
+        Post post = postRepository.findById(request.getPostId()).orElse(null);
 
         if(user!=null && post!=null){
             Like likeToSave = new Like();
@@ -57,7 +58,6 @@ public class LikeService {
         }else
             return null;
     }
-
 
     public Like updateOneLikeById(Long likeId, LikeUpdateRequest request) {
         Optional<Like> like = likeRepository.findById(likeId);

@@ -44,7 +44,7 @@ public class PostService {
             list= postRepository.findAll();
         }
         return list.stream().map(p->{
-            List<LikeResponse> likes = likeService.getAllLikesWithParam(null,Optional.ofNullable(p.getId()));
+            List<LikeResponse> likes = likeService.getAllLikesWithParam(Optional.empty(),Optional.ofNullable(p.getId()));
             return new PostResponse(p,likes); }).collect(Collectors.toList());
     }
 
