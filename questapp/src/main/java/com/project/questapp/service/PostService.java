@@ -4,18 +4,14 @@ import com.project.questapp.model.dto.request.PostCreateRequest;
 import com.project.questapp.model.dto.request.PostUpdateRequest;
 import com.project.questapp.model.dto.response.LikeResponse;
 import com.project.questapp.model.dto.response.PostResponse;
-import com.project.questapp.model.entity.Like;
 import com.project.questapp.model.entity.Post;
 import com.project.questapp.model.entity.User;
-import com.project.questapp.repository.LikeRepository;
 import com.project.questapp.repository.PostRepository;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
