@@ -1,7 +1,6 @@
+
 package com.project.questapp.config;
 
-import com.project.questapp.security.JwtAuthenticationEntryPoint;
-import com.project.questapp.security.JwtAuthenticationFilter;
 import com.project.questapp.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,40 +12,43 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.Collections;
+import com.project.questapp.security.JwtAuthenticationEntryPoint;
+import com.project.questapp.security.JwtAuthenticationFilter;
+import com.project.questapp.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
+
     private JwtAuthenticationEntryPoint handler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService,JwtAuthenticationEntryPoint handler) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthenticationEntryPoint handler) {
         this.userDetailsService = userDetailsService;
-        this.handler=handler;
+        this.handler = handler;
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -60,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Collections.singletonList("*"));
+        config.addAllowedOrigin("http://localhost:3000/");
+        config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
         config.addAllowedMethod("GET");
@@ -91,5 +94,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 }
