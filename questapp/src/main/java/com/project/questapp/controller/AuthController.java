@@ -22,15 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private AuthenticationManager authenticationManager;
+
     private JwtTokenProvider jwtTokenProvider;
+
     private UserService userService;
+
     private PasswordEncoder passwordEncoder;
 
-    public AuthController(AuthenticationManager authenticationManager,JwtTokenProvider jwtTokenProvider,UserService userService,PasswordEncoder passwordEncoder){
-        this.authenticationManager=authenticationManager;
-        this.jwtTokenProvider=jwtTokenProvider;
-        this.userService=userService;
-        this.passwordEncoder=passwordEncoder;
+    public AuthController(AuthenticationManager authenticationManager, UserService userService,
+                          PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @PostMapping("/login")

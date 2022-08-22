@@ -17,36 +17,21 @@ import java.util.stream.Collector;
 public class JwtUserDetails implements UserDetails {
 
     public Long id;
-    public String username;
-    public String password;
-    public Collection<? extends GrantedAuthority> authorities;
+    private String username;
+    private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUserDetails(Long id,String username,String password,Collection<? extends GrantedAuthority> authorities) {
-        this.id=id;
-        this.username=username;
-        this.password=password;
-        this.authorities=authorities;
+    private JwtUserDetails(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
     }
 
-    public static JwtUserDetails create(User user){
+    public static JwtUserDetails create(User user) {
         List<GrantedAuthority> authoritiesList = new ArrayList<>();
         authoritiesList.add(new SimpleGrantedAuthority("user"));
-        return new JwtUserDetails(user.getId(), user.getUserName(),user.getPassword(),authoritiesList);
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
+        return new JwtUserDetails(user.getId(), user.getUserName(), user.getPassword(), authoritiesList);
     }
 
     @Override
