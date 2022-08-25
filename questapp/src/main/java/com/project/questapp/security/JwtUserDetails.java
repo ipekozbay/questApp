@@ -17,13 +17,13 @@ import java.util.stream.Collector;
 public class JwtUserDetails implements UserDetails {
 
     public Long id;
-    private String username;
+    private String userName;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
     private JwtUserDetails(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.username = username;
+        this.userName = username;
         this.password = password;
         this.authorities = authorities;
     }
@@ -41,7 +41,7 @@ public class JwtUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     @Override

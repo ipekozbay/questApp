@@ -39,11 +39,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody UserRequest loginRequest){
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword());
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication auth = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
         String jwtToken = jwtTokenProvider.generateJwtToken(auth);
-        User user = userService.getOneUserByUserName(loginRequest.getUserName());
+        User user = userService.getOneUserByUserName(loginRequest.getUsername());
         AuthResponse authResponse = new AuthResponse();
         authResponse.setMessage("Bearer" + jwtToken);
         authResponse.setUserId(user.getId());
@@ -54,13 +54,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(@RequestBody UserRequest registerRequest){
         AuthResponse authResponse = new AuthResponse();
 
-        if(userService.getOneUserByUserName(registerRequest.getUserName()) != null){
+        if(userService.getOneUserByUserName(registerRequest.getUsername()) != null){
             authResponse.setMessage("username already in use ");
+            return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
+        }
+        if (registerRequest.getUsername()== null || registerRequest.getPassword()== null){
+            authResponse.setMessage(" not ne null ");
             return new ResponseEntity<>(authResponse, HttpStatus.BAD_REQUEST);
         }
 
         User user = new User();
-        user.setUserName(registerRequest.getUserName());
+        user.setUserName(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userService.saveOneUser(user);
         authResponse.setMessage("user successfully register");

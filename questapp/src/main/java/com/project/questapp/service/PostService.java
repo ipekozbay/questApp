@@ -53,7 +53,6 @@ public class PostService {
         User user = userService.getOneUserById(newPostRequest.getUserId());
  //  if (user==null)
  //        return null;
-
         Post toSave = new Post();
         toSave.setId(newPostRequest.getId());
         toSave.setText(newPostRequest.getText());
