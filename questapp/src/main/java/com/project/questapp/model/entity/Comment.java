@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -33,4 +34,8 @@ public class Comment {
     @Column(columnDefinition = "text")
     @Type(type = "org.hibernate.type.TextType")
     private String text;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
 }
