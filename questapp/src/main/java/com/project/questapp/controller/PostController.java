@@ -30,13 +30,12 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post getOnePost(@RequestParam Long postId){
-        return postService.getOnePostById(postId);
+    public PostResponse getOnePost(@RequestParam Long postId){
+        return postService.getOnePostByIdWithLikes(postId);
     }
     @PutMapping("/{postId}")
     public Post updateOnePost(@PathVariable Long postId, @RequestBody PostUpdateRequest updatePost){
         return postService.updateOnePostById(postId, updatePost);
-
     }
 
     @DeleteMapping("/{postId}")
