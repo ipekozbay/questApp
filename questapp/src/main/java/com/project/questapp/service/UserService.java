@@ -48,6 +48,7 @@ public class UserService {
             User foundUser = user.get();
             foundUser.setUserName((newUser.getUserName()));
             foundUser.setPassword((newUser.getPassword()));
+            foundUser.setAvatar(newUser.getAvatar());
             userRepository.save(foundUser);
             return foundUser;
         }else{
